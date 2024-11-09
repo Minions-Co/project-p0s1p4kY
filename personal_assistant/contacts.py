@@ -2,12 +2,7 @@ import re
 from datetime import datetime
 from dateutil.parser import parse as parse_date
 from personal_assistant.storage import Storage
-
-class InvalidPhoneError(Exception):
-    pass
-
-class InvalidEmailError(Exception):
-    pass
+from personal_assistant.exceptions import InvalidEmailError, InvalidPhoneError
 
 class Contact:
     def __init__(self, name, address='', phones=None, email='', birthday=None):
@@ -20,17 +15,20 @@ class Contact:
     def validate_phone(self, phone):
         pattern = r'^\+?\d{9,15}$'
         if not re.match(pattern, phone):
-            raise InvalidPhoneError(f"Invalid phone number: {phone}")
+            raise InvalidPhoneError(f"Некоректний номер телефону: {phone}")
 
     def validate_email(self):
         pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
         if not re.match(pattern, self.email):
-            raise InvalidEmailError(f"Invalid email address: {self.email}")
+            raise InvalidEmailError(f"Некоректний email: {self.email}")
 
     def days_to_birthday(self):
         if self.birthday:
-            today = datetime.today()
-            bday = datetime.strptime(self.birthday, '%Y-%m-%d')
+            today = datetime.now().date()
+            try:
+                bday = parse_date(self.birthday).date()
+            except ValueError:
+                return None
             next_birthday = bday.replace(year=today.year)
             if next_birthday < today:
                 next_birthday = next_birthday.replace(year=today.year + 1)
