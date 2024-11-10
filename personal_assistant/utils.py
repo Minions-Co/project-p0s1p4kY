@@ -44,7 +44,6 @@ class CommandHandler:
             print(f" - {cmd}")
 
     def add_contact(self, args):
-        # Логіка додавання контакту
         try:
             data = args.split(';')
             if len(data) < 1:
