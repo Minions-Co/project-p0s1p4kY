@@ -1,5 +1,7 @@
 from personal_assistant.exceptions import UnknownCommandError
 from difflib import get_close_matches
+from personal_assistant.contacts import Contact
+from personal_assistant.notes import Note
 
 def parse_command(user_input):
     parts = user_input.strip().split(' ', 1)
@@ -42,9 +44,11 @@ class CommandHandler:
             print(f" - {cmd}")
 
     def add_contact(self, args):
-        # Логіка додавання контакту
         try:
             data = args.split(';')
+            if len(data) < 1:
+                print("Необхідно вказати хоча б ім'я контакту.")
+                return
             name = data[0].strip()
             address = data[1].strip() if len(data) > 1 else ''
             phones = data[2].strip().split(',') if len(data) > 2 else []
@@ -66,6 +70,9 @@ class CommandHandler:
     def edit_contact(self, args):
         try:
             data = args.split(';')
+            if len(data) < 3:
+                print("Необхідно вказати ім'я, поле та нове значення.")
+                return
             name = data[0].strip()
             field = data[1].strip()
             value = data[2].strip()
@@ -80,14 +87,20 @@ class CommandHandler:
         try:
             days = int(args.strip())
             contacts = self.contact_book.get_upcoming_birthdays(days)
-            for contact in contacts:
-                print(f"{contact.name} - день народження через {contact.days_to_birthday()} днів")
+            if contacts:
+                for contact in contacts:
+                    print(f"{contact.name} - день народження через {contact.days_to_birthday()} днів")
+            else:
+                print("Немає контактів з днями народження в найближчі дні.")
         except ValueError:
             print("Будь ласка, введіть коректну кількість днів.")
 
     def add_note(self, args):
         try:
             data = args.split(';')
+            if len(data) < 1:
+                print("Необхідно вказати хоча б заголовок нотатки.")
+                return
             title = data[0].strip()
             content = data[1].strip() if len(data) > 1 else ''
             tags = data[2].strip().split(',') if len(data) > 2 else []
@@ -116,6 +129,9 @@ class CommandHandler:
     def edit_note(self, args):
         try:
             data = args.split(';')
+            if len(data) < 1:
+                print("Необхідно вказати заголовок нотатки.")
+                return
             title = data[0].strip()
             content = data[1].strip() if len(data) > 1 else None
             tags = data[2].strip().split(',') if len(data) > 2 else None
