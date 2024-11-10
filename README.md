@@ -1,11 +1,11 @@
 # Birthday Planner
 
-Birthday Planner is a command-line application written in Python that helps users manage contacts and notes efficiently.
+Birthday Planner is a command-line application written in Python that helps users manage contacts and notes efficiently. It is especially nice for planning upcoming birthday greetings because of the built-in notes and upcoming birthdays notification
 
 ## Features
-- **Contact Management**: Add, edit, delete, and search contacts.
-- **Notes Management**: Add, edit, delete, and search notes, including tags.
-- **Command Suggestion**: Intelligent command suggestion based on user input.
+- **Contact Management**: add, edit, delete, and search contacts. Show contacts with upcoming birthdays
+- **Notes Management**: add, edit, delete, and search notes, including tags.
+- **Command Suggestion**: intelligent command suggestion based on user input.
 
 ## Installation
 
@@ -22,6 +22,19 @@ After installation, you can run the Birthday Planner using the command:
 ```sh
 birthday-planner
 ```
+
+## Commands
+
+- **add_contact**
+- **search_contacts**
+- **edit_contact**
+- **delete_contact**
+- **upcoming_birthdays** - show upcoming birthdays in specified number of days
+
+- **add_note**
+- **search_by_tags** - search notes by tags
+- **edit_note**
+- **delete_note**
 
 ## Usage example
 
