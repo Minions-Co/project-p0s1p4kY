@@ -101,7 +101,9 @@ class ContactBook:
     def edit_contact(self, name, field, value):
         if name in self.contacts:
             contact = self.contacts[name]
-            if field == 'address':
+            if field == 'name':
+                contact.name = value
+            elif field == 'address':
                 contact.address = value
             elif field == 'email':
                 contact.email = value

@@ -5,7 +5,7 @@ from personal_assistant.utils import parse_command, CommandHandler
 from personal_assistant.exceptions import UnknownCommandError
 
 def main():
-    print("Вітаємо у Personal Assistant!")
+    print("Вітаємо у Birthday Planner!")
     contact_book = ContactBook()
     note_book = NoteBook()
     handler = CommandHandler(contact_book, note_book)
